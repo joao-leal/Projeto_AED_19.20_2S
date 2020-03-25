@@ -3,17 +3,17 @@ CC = gcc
 CFLAGS = -g -Wall -ansi -pedantic # !! -std=c99 -O3 !!
 
 #   Sources
-SOURCES = wordz.c list.c
+SOURCES = wordz.c graph.c
 
 #   Objects  ('Make' automatically compiles .c to .o)
-OBJECTS_A = wordz.o list.o 
+OBJECTS_A = wordz.o graph.o 
 
-campista: $(OBJECTS_A)
+wordz: $(OBJECTS_A)
 	$(CC) $(CFLAGS) -o $@ $(OBJECTS_A)
 
-campista.o: wordz.c defs.h #list.h
+wordz.o: wordz.c defs.h graph.h
 
-list.o: list.c wordz.h #list.h 
+#list.o: list.c wordz.h #list.h 
 
 clean:
 	rm -f *.o *.~ *.gch

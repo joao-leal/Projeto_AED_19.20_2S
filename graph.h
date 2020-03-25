@@ -9,6 +9,7 @@ typedef struct graph Graph;
 Graph *GRAPHinit(int); 
 
 void GRAPHinsertE(Graph *, Edge *);
+void GRAPHinsertString(Graph *, char*, int);
 void GRAPHremoveE(Graph *, Edge *);
 int GRAPHedges(Edge **, Graph *);
 Graph *GRAPHcopy(Graph *);

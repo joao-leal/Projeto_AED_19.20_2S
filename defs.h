@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "graph.h"
+
+
 
 typedef void *Item;
 
@@ -12,6 +15,15 @@ typedef struct _list
     Item item;
     struct _list *next;
 } list;
+
+typedef struct _header
+{
+    int v;
+    int a;
+    char o;
+    int k;
+} header;
+
 
 
 /*        List Interface        */
@@ -25,7 +37,10 @@ Item GetElement(list *);
 
 
 /*            Wordz             */
-char* OutputName(char* p);
+char* OutputFile( int *, char const *);
+void BuildHeader(FILE *, header *);
+
+void BuildGraph(FILE *, Graph *);
 /********************************/
 
 
