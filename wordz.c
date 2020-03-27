@@ -18,25 +18,27 @@ int main(int argc, char const *argv[])
     FILE *fp;
     FILE *fp1;
 
-    Graph *graph;
+    Graph *G = NULL;
 
     header *hd = (header *) calloc(1, sizeof(header));
 
     char *output = NULL;
     char *buf = NULL ;
+    char *path = NULL;
 
 
-    /*No Argumentos Minimo*/
+    /*N. Argumentos Minimo*/
     if(argc < 3)
     {
         fprintf(stderr, "ERROR: Missing Arguments.\n");
         exit(1);
     }
 
-    /*abrir ficheiro*/
+    /*abrir dicionario*/
     buf = strstr(argv[1], ".dict");
     if(buf == NULL){fprintf(stderr, "ERRO: Ficheiro .dict"); exit(0);} 
 
+    /*abrir grafo*/
     buf = strstr(argv[2], ".graph0");
     if(buf == NULL){fprintf(stderr, "ERRO: Ficheiro .graph0"); exit(0);}
 
@@ -48,10 +50,14 @@ int main(int argc, char const *argv[])
     fp1 = fopen (output, "a");
 
     /*Le cabecalho ficheiro entrada*/
-    BuildHeader(fp, hd);
-    graph = GRAPHinit(hd->v);
-
-
+    while(!feof(fp))
+    {
+        BuildHeader(fp, hd);
+        G = GRAPHinit(hd->v);
+        GetPath(fp, path, hd->k);
+        BuildGraph(fp, G);
+    }
+    
     free(output);
     free(hd);
     fclose(fp);
@@ -94,7 +100,34 @@ void BuildHeader(FILE *fp, header *hd)
     }
 }
 
+void GetPath(FILE * fp, char *path, int max)
+{
+    int i;
+    char * buf = (char*) malloc( sizeof(char));
+
+    path = (char*) calloc((max + 1), sizeof(char));
+
+    for(i = 0; i < max; i++)
+    {  
+        if(fscanf(fp, "%s ", buf) != 1)
+        {
+            fprintf(stderr, "ERROR: Invalid Path");
+            exit(0);
+        }
+        strcat(path, buf);
+    }
+
+}
+
 void BuildGraph(FILE *fp, Graph * G)
 {
-
+    int v, t;
+    char *buf = (char*) malloc(5 * sizeof(char));
+    
+    while (fscanf(fp, "%d %s %d\n", &v, buf, &t) < 3)
+    {
+        GRAPHinsertString(G, buf, v);
+        GRAPHinsertValue(G, v, t);
+    }
+    
 }

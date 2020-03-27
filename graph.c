@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+
 #include "graph.h"
 
 
@@ -11,13 +12,9 @@ struct node
     link *next;
 };*/
 
-struct graph
-{
-    int V;
-    int E;
-    int **adj;
-    char **string; 
-};
+
+
+
 
 struct edge
 {
@@ -40,11 +37,18 @@ Graph *GRAPHinit(int V) /*Matriz de Adjacencias*/
     Graph *G = (Graph*) malloc(sizeof(struct graph));
 
     G->V = V; G->E = 0;
+
     G->adj = (int**) malloc(V * sizeof(int*));
     for(v = 0; v < V; v++)
     {
         G->adj[v] = (int*) malloc((v + 1) * sizeof(int)); /*Matriz simetrica logo apenas precisamos de alocar metade*/  
         for(i = 0; i < v; i++) G->adj[v][i] = 0;
+    }
+
+    G->string = (char**) malloc((G->V) * sizeof(char*));
+    for(v = 0; v < V; v++)
+    {
+        G->string[v] = NULL;
     }
 
     return G;
@@ -59,16 +63,16 @@ void GRAPHinsertE(Graph *G, Edge *e)
     else G->adj[v][w] = 1;
 }
 
+void GRAPHinsertValue(Graph *G, int v, int t)
+{
+
+}
+
 
 
 void GRAPHinsertString(Graph *G, char* string, int v)
 {
-    if(G->string == NULL)
-    {
-        G->string = (char**) malloc((G->V) * sizeof(char*));
-    }
-
-    G->string[v-1] = (char*) malloc((strlen(string)) * sizeof(char));
+    G->string[v-1] = (char*) malloc((strlen(string)+1) * sizeof(char));
     strcpy(G->string[v-1], string);
 }
 

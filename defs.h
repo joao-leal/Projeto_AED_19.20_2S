@@ -4,11 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "graph.h"
 
 
-
 typedef void *Item;
+
 
 typedef struct _list
 {
@@ -39,7 +40,7 @@ Item GetElement(list *);
 /*            Wordz             */
 char* OutputFile( int *, char const *);
 void BuildHeader(FILE *, header *);
-
+void GetPath(FILE *, char *, int);
 void BuildGraph(FILE *, Graph *);
 /********************************/
 
