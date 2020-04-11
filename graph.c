@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "graph.h"
@@ -16,11 +17,7 @@ struct node
 
 
 
-struct edge
-{
-    int v;
-    int w;
-};
+
 /*
 link *New(int v, link *next)
 {
@@ -42,7 +39,10 @@ Graph *GRAPHinit(int V) /*Matriz de Adjacencias*/
     for(v = 0; v < V; v++)
     {
         G->adj[v] = (int*) malloc((v + 1) * sizeof(int)); /*Matriz simetrica logo apenas precisamos de alocar metade*/  
-        for(i = 0; i < v; i++) G->adj[v][i] = 0;
+        for(i = 0; i < v+1; i++)
+        {
+            G->adj[v][i] = 0;
+        } 
     }
 
     G->string = (char**) malloc((G->V) * sizeof(char*));
@@ -56,7 +56,9 @@ Graph *GRAPHinit(int V) /*Matriz de Adjacencias*/
 
 void GRAPHinsertE(Graph *G, Edge *e)
 {
-    int v = e->v - 1, w = e->w - 1;
+    int v, w;
+    v = e->v -1;
+    w = e->w -1;
 
     if(G->adj[v][w] == 0) G->E++;    
     if(v < w) G->adj[w][v] = 1;     /*se adj[i][j] = 1 entao i liga a j, em adj[i][i] -> valor do vertice*/
@@ -65,7 +67,7 @@ void GRAPHinsertE(Graph *G, Edge *e)
 
 void GRAPHinsertValue(Graph *G, int v, int t)
 {
-
+    G->adj[v-1][v-1] = t;
 }
 
 

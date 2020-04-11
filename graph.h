@@ -1,8 +1,12 @@
 #ifndef _GRAPH_H_
 #define _GRAPH_H_
 
-typedef struct edge Edge;
-Edge *EDGE(int, int);
+
+typedef struct edge
+{
+    int v;
+    int w;
+} Edge;
 
 typedef struct graph
 {
@@ -11,6 +15,8 @@ typedef struct graph
     int **adj;
     char **string; 
 } Graph;
+
+Edge *EDGE(int, int);
 
 Graph *GRAPHinit(int); 
 

@@ -40,8 +40,18 @@ Item GetElement(list *);
 /*            Wordz             */
 char* OutputFile( int *, char const *);
 void BuildHeader(FILE *, header *);
-void GetPath(FILE *, char *, int);
+int* GetPath(FILE *, /*char*/ int *, int);
 void BuildGraph(FILE *, Graph *);
+
+int ModeA(Graph *, int, int *);
+int ModeB(Graph *, int, int *);
+int Validation(Graph *, int, int *, int *);
+int ModeC(Graph *, int, int *, char *);
+int ModeD(Graph *, int, int *, char *, char *);
+int SearchDict(char *, char *);
+int Alternatives(Graph *, int , int *, char *, char *, int *);
+
+
 /********************************/
 
 

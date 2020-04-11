@@ -16,4 +16,15 @@ wordz.o: wordz.c defs.h graph.h
 #list.o: list.c wordz.h #list.h 
 
 clean:
-	rm -f *.o *.~ *.gch
+	rm -f *.o *.~ *.gch *.wordz0
+
+FILES = $(shell ls ./primeiro/*.graph0)
+OUTPUT = $(shell ls ./primeiro/*.wordz)
+TEST = $(shell ls ./primeiro/*.wordz)
+
+
+t:
+	for F in ${FILES}; do ./wordz curto.dict $${F} ; done;
+
+t2:
+	for F in $(OUTPUT); do diff $${F} $${F} ; done;
